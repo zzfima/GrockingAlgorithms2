@@ -13,12 +13,12 @@ namespace BinarySearch
                 ints[i] = i * 2;
 
             for (int i = 0; i < 210; i++)
-                Console.WriteLine($"num {i} exists: {IsNumberExists(ints, i)}");
+                Console.WriteLine($"num {i} exists: {IsNumberExistsRecursion(ints, i)}");
 
             Console.ReadLine();
         }
 
-        private static bool IsNumberExists(int[] ints, int v)
+        private static bool IsNumberExistsRecursion(int[] ints, int v)
         {
             if (ints.Length == 0)
                 return false;
@@ -33,9 +33,9 @@ namespace BinarySearch
                 return false;
 
             if (numInTheMiddle > v)
-                return IsNumberExists(ints[..middleIndex], v);
+                return IsNumberExistsRecursion(ints[..middleIndex], v);
 
-            return IsNumberExists(ints[(middleIndex + 1)..], v);
+            return IsNumberExistsRecursion(ints[(middleIndex + 1)..], v);
         }
     }
 }
