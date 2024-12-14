@@ -4,11 +4,11 @@
 	{
 		static void Main(string[] args)
 		{
-			var s1 = SlowSort([6, 3, 8, 9, 1]);
+			var s1 = SelectionSort([6, 3, 8, 9, 1]);
 			var s2 = RecSort([6, 3, 8, 9, 1, 5]);
 		}
 
-		public static int[] SlowSort(int[] ints)
+		public static int[] SelectionSort(int[] ints)
 		{
 			for (int i = 0; i < ints.Length; i++)
 			{
