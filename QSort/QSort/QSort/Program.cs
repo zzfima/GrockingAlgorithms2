@@ -5,7 +5,7 @@
 		static void Main(string[] args)
 		{
 			var s1 = SlowSort([6, 3, 8, 9, 1]);
-			var s2 = RecSort([6, 3, 8, 9, 1]);
+			var s2 = RecSort([6, 3, 8, 9, 1, 5]);
 		}
 
 		public static int[] SlowSort(int[] ints)
@@ -31,19 +31,6 @@
 			//base case
 			if (ints.Length <= 1)
 				return ints;
-
-			if (ints.Length == 2)
-			{
-				if (ints[0] < ints[1])
-					return ints;
-				else
-				{
-					int tmp = ints[0];
-					ints[0] = ints[1];
-					ints[1] = tmp;
-					return ints;
-				}
-			}
 
 			//recursive case
 			int pivot = ints[0];
