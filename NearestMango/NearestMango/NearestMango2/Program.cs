@@ -47,12 +47,13 @@ namespace NearestMango2
 			sellers[tom] = [];
 
 			Queue<FruitsSeller> queue = new();
-			EnqueueStrings(sellers[me], queue);
+			HashSet<FruitsSeller> checkedSellers = new();
+			EnqueueSellerFirstTime(sellers[me], queue, checkedSellers);
 
-			RecFindSeller(queue, sellers);
+			RecFindSeller(queue, sellers, checkedSellers);
 		}
 
-		private static void RecFindSeller(Queue<FruitsSeller> queue, Dictionary<FruitsSeller, FruitsSeller[]> sellers)
+		private static void RecFindSeller(Queue<FruitsSeller> queue, Dictionary<FruitsSeller, FruitsSeller[]> sellers, HashSet<FruitsSeller> checkedSellers)
 		{
 			if (queue.Count == 0)
 			{
@@ -66,8 +67,8 @@ namespace NearestMango2
 				return;
 			}
 
-			EnqueueStrings(sellers[seller], queue);
-			RecFindSeller(queue, sellers);
+			EnqueueSellerFirstTime(sellers[seller], queue, checkedSellers);
+			RecFindSeller(queue, sellers, checkedSellers);
 		}
 
 		private static void RunSequntial()
@@ -93,28 +94,36 @@ namespace NearestMango2
 			sellers[johny] = [];
 			sellers[tom] = [];
 
-			Queue<FruitsSeller> queue = new();
-			EnqueueStrings(sellers[me], queue);
+			Queue<FruitsSeller> featureSellers = new();
+			HashSet<FruitsSeller> checkedSellers = new();
+			EnqueueSellerFirstTime(sellers[me], featureSellers, checkedSellers);
 
-			while (queue.Count > 0)
+			while (featureSellers.Count > 0)
 			{
-				FruitsSeller seller = queue.Dequeue();
+				FruitsSeller seller = featureSellers.Dequeue();
+
 				if (seller.Fruit == FruitType.Peach)
 				{
 					Console.WriteLine($"Peach seller {seller.Name}");
 					break;
 				}
 
-				EnqueueStrings(sellers[seller], queue);
+				EnqueueSellerFirstTime(sellers[seller], featureSellers, checkedSellers);
 			}
 
 		}
 
-		static void EnqueueStrings(FruitsSeller[] sellers, Queue<FruitsSeller> queue)
+		static void EnqueueSellerFirstTime(FruitsSeller[] sellers, Queue<FruitsSeller> featureSellers, HashSet<FruitsSeller> checkedSellers)
 		{
 			foreach (FruitsSeller s in sellers)
 			{
-				queue.Enqueue(s);
+				if (!checkedSellers.Contains(s))
+				{
+					checkedSellers.Add(s);
+					featureSellers.Enqueue(s);
+				}
+				else
+					Console.WriteLine($" seller {s.Name} already checked!");
 			}
 		}
 	}
