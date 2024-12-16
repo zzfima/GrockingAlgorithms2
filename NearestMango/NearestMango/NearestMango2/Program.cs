@@ -54,6 +54,11 @@ namespace NearestMango2
 
 		private static void RecFindSeller(Queue<FruitsSeller> queue, Dictionary<FruitsSeller, FruitsSeller[]> sellers)
 		{
+			if (queue.Count == 0)
+			{
+				Console.WriteLine($"No Peach seller");
+				return;
+			}
 			FruitsSeller seller = queue.Dequeue();
 			if (seller.Fruit == FruitType.Peach)
 			{
